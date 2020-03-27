@@ -1,0 +1,33 @@
+diff -ruN wpewebkit-2.26.2.orig/Source/JavaScriptCore/assembler/MacroAssemblerARM64.cpp wpewebkit-2.26.2/Source/JavaScriptCore/assembler/MacroAssemblerARM64.cpp
+--- wpewebkit-2.26.2.orig/Source/JavaScriptCore/assembler/MacroAssemblerARM64.cpp	2019-11-07 16:14:33.000000000 +0100
++++ wpewebkit-2.26.2/Source/JavaScriptCore/assembler/MacroAssemblerARM64.cpp	2019-12-26 22:53:09.959268042 +0100
+@@ -33,7 +33,7 @@
+ 
+ #if OS(LINUX)
+ #include <asm/hwcap.h>
+-#include <sys/auxv.h>
++//#include <sys/auxv.h>
+ #endif
+ 
+ namespace JSC {
+@@ -557,7 +557,7 @@
+         // is shipped and implemented in some CPUs. In that case, even if the CPU has
+         // that feature, the kernel does not tell it to users.), it is a stable approach.
+         // https://www.kernel.org/doc/Documentation/arm64/elf_hwcaps.txt
+-        uint64_t hwcaps = getauxval(AT_HWCAP);
++        uint64_t hwcaps = 0;//getauxval(AT_HWCAP);
+ 
+ #if !defined(HWCAP_JSCVT)
+ #define HWCAP_JSCVT (1 << 13)
+diff -ruN wpewebkit-2.26.2.orig/Source/WTF/wtf/PlatformRegisters.h wpewebkit-2.26.2/Source/WTF/wtf/PlatformRegisters.h
+--- wpewebkit-2.26.2.orig/Source/WTF/wtf/PlatformRegisters.h	2019-11-07 16:14:36.000000000 +0100
++++ wpewebkit-2.26.2/Source/WTF/wtf/PlatformRegisters.h	2019-12-26 22:30:27.734401983 +0100
+@@ -35,7 +35,7 @@
+ #elif OS(WINDOWS)
+ #include <windows.h>
+ #else
+-#include <ucontext.h>
++#include <sys/ucontext.h>
+ #endif
+ 
+ namespace WTF {

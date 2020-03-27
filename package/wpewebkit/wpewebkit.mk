@@ -15,7 +15,7 @@ WPEWEBKIT_LICENSE_FILES = \
 WPEWEBKIT_DEPENDENCIES = host-gperf host-python host-ruby \
 	harfbuzz cairo icu jpeg libepoxy libgcrypt libgles libsoup libtasn1 \
 	libpng libxslt openjpeg wayland-protocols webp wpebackend-fdo
-
+WPEWEBKIT_CFLAGS = $(TARGET_CFLAGS) -I$(STAGING_DIR)/usr/include/
 WPEWEBKIT_CONF_OPTS = \
 	-DPORT=WPE \
 	-DENABLE_ACCESSIBILITY=OFF \
@@ -32,6 +32,10 @@ else
 WPEWEBKIT_CONF_OPTS += \
 	-DENABLE_VIDEO=OFF \
 	-DENABLE_WEB_AUDIO=OFF
+endif
+
+ifeq ($(BR2_PACKAGE_LIBICONV),y)
+WPEWEBKIT_DEPENDENCIES += libiconv 
 endif
 
 ifeq ($(BR2_PACKAGE_WPEWEBKIT_USE_GSTREAMER_GL),y)

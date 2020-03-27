@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# Emable selfik modules for kernel
+#
+
+
+# Start the service 
+start() {
+        echo 'Enabling wifi driver'
+        modprobe brcmfmac 
+        echo 'Enabling OpenGL ES driver'
+        modprobe lima
+        echo 'modules started'
+}
+
+# Restart the service 
+stop() {
+        echo 'calling stop in modules'
+        modprobe -r brcmfmac 
+        
+        modprobe -r lima
+        echo 'done'
+}
+
+### main logic ###
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status FOO
+        ;;
+  restart|reload|condrestart)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        exit 1
+esac
+
+exit 0

@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# Emable selfik technologies
+#
+
+
+# Start the service 
+start() {
+        #echo 'Starting connmand'
+        #connmanctl agent on
+        #echo 'Trying to enable wifi'
+        #connmanctl enable wifi
+        export XDG_RUNTIME_DIR=/etc
+        export MESA_DEBUG=1
+	  export EGL_LOG_LEVEL=debug
+	  export LIBGL_DEBUG=verbose
+	  export WAYLAND_DEBUG=1
+        /bin/weston --config=/etc/weston/weston.ini --tty=1 --log=/weston.log &
+        echo 'Selfik enablements processed'
+}
+
+# Restart the service 
+stop() {
+        #connmanctl disable wifi
+        echo 'Selfik features disabled'
+}
+
+### main logic ###
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status FOO
+        ;;
+  restart|reload|condrestart)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        exit 1
+esac
+
+exit 0

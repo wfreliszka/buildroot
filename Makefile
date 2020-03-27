@@ -537,7 +537,7 @@ include fs/common.mk
 include $(BR2_EXTERNAL_FILE)
 
 # Nothing to include if no BR2_EXTERNAL tree in use
-include $(BR2_EXTERNAL_MKS)
+#include $(BR2_EXTERNAL_MKS)
 
 # Now we are sure we have all the packages scanned and defined. We now
 # check for each package in the list of enabled packages, that all its

@@ -1,0 +1,2 @@
+super -1 super -1 * - /bin/sh input,tty 
+visual -1 video -1 * - /bin/sh video,audio,input,tty 
